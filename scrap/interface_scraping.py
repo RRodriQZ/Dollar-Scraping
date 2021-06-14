@@ -6,7 +6,7 @@ from log.logger import Log
 class Scraping(object):
     __metaclass__ = ABCMeta
 
-    def __init__(self, log=Log()):
+    def __init__(self, log=Log()) -> None:
         config = ConfigParser()
         config.read('config.ini')
 
@@ -36,7 +36,7 @@ class Scraping(object):
         self.logger = log.getLogger(__name__)
 
     @abstractmethod
-    def get_response_by_url(self, url): pass
+    def get_response_by_url(self, url: str) -> dict: pass
 
     @abstractmethod
-    def get_data_from_pages(self): pass
+    def get_data_from_pages(self) -> dict: pass

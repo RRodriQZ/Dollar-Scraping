@@ -7,11 +7,11 @@ import json
 
 
 class Bloomberg(Scraping):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(Log())
         self.logger = Log().getLogger(__name__)
 
-    def get_response_by_url(self, url):
+    def get_response_by_url(self, url: str) -> dict:
         try:
             request = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
             webpage = urlopen(request, timeout=10).read()
@@ -23,7 +23,7 @@ class Bloomberg(Scraping):
             print(f'Error en el retorno del response de url: "{url}", error: "{e}"')
             self.logger.error(f'Error en el retorno del response de url: "{url}", error: "{e}"')
 
-    def get_data_from_pages(self):
+    def get_data_from_pages(self) -> dict:
         try:
             bloomberg_scrap = dict()
 

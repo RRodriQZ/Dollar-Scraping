@@ -11,7 +11,7 @@ REPORT_FILE = config['File']['excel_file']
 HEAD_COLUMN = config['File']['head']
 
 
-def check_exists_excel_file():
+def check_exists_excel_file() -> None:
     logger = Log().getLogger(__name__)
     try:
         print(f'========================= INICIANDO EL SCRIPT =========================')
@@ -23,15 +23,14 @@ def check_exists_excel_file():
         else:
             print(f'=========== No existe el archivo: "{REPORT_FILE}" ===========')
 
+            head_column = HEAD_COLUMN.split(',')
+            titles = tuple(head_column)
+
             wb = Workbook()
             wb.save(REPORT_FILE)
+
             sheet = wb.active
-
-            head_column = HEAD_COLUMN.split(',')
-            head_titles = [tuple(head_column)]
-
-            for title in head_titles:
-                sheet.append(title)
+            sheet.append(titles)
 
             wb.save(REPORT_FILE)
 
@@ -44,14 +43,14 @@ def check_exists_excel_file():
         logger.error(f'ERROR en la Generacion del excel "{REPORT_FILE}", error: "{e}"')
 
 
-def update_sheet_row(row):
+def update_sheet_row(data: tuple) -> None:
     logger = Log().getLogger(__name__)
     try:
         wb = load_workbook(REPORT_FILE)
+
         sheet = wb.active
 
-        for r in row:
-            sheet.append(r)
+        sheet.append(data)
 
         wb.save(REPORT_FILE)
 

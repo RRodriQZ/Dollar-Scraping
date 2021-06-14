@@ -1,13 +1,13 @@
+from datetime import datetime
 from log.logger import Log
-import datetime
 
 
-def get_str_time_now():
+def get_str_time_now() -> str:
     """ Retorno la fecha actual en formato de String. """
-    return str(datetime.datetime.now())
+    return datetime.now().strftime('%d-%m-%Y %H:%M:%S')
 
 
-def clean_scraping_values(scrap, value):
+def clean_scraping_values(scrap: str, value: str) -> str:
     """
     Retorno el valor limpio del sraping individual en formato String.
 
@@ -18,8 +18,8 @@ def clean_scraping_values(scrap, value):
     logger = Log().getLogger(__name__)
     try:
         if scrap == 'dollar':
-            clear_val = round(float(value), 2)
-            value = str(clear_val).replace(',', '.')
+            rounded_value = round(float(value), 2)
+            value = str(rounded_value).replace(',', '.')
             return value
 
         elif scrap == 'rofex':
@@ -27,13 +27,13 @@ def clean_scraping_values(scrap, value):
             return value
 
         elif scrap == 'cme':
-            clear_val = round(float(value), 3)
-            value = str(clear_val)
+            rounded_value = round(float(value), 3)
+            value = str(rounded_value)
             return value
 
         elif scrap == 'bloomberg':
-            clear_val = round(float(value), 2)
-            value = str(clear_val)
+            rounded_value = round(float(value), 2)
+            value = str(rounded_value)
             return value
 
     except Exception as e:
@@ -41,15 +41,15 @@ def clean_scraping_values(scrap, value):
         logger.error(f'Ocurrio un error en la limpieza del valor: "{e}"')
 
 
-def get_scraping_values_format_tuple(dollar_json, cme_json, bloomberg_json):
+def get_scraping_values_format_tuple(dollar_json: dict, cme_json: dict, bloomberg_json: dict) -> tuple:
     """
-    Retorno los 3 scrapings appendeados en formato de: [tuple]
+    Retorno los 3 scrapings appendeados en formato de: Tuple
     con el momento que se disparo el scraping.
 
-    :param dollar_json: {dollar}
-    :param cme_json: {cme}
-    :param bloomberg_json: {bloomberg}
-    :return: [(String)]
+    :param dollar_json: dict
+    :param cme_json: dict
+    :param bloomberg_json: dict
+    :return: Tuple
     """
     logger = Log().getLogger(__name__)
     try:
@@ -73,7 +73,7 @@ def get_scraping_values_format_tuple(dollar_json, cme_json, bloomberg_json):
         row_list.extend(cme_json['cme_cotizaciones_butane_opis'])
         row_list.extend(cme_json['cme_cotizaciones_naphtha_cif_nwe'])
 
-        scraping_tuple = [tuple(row_list)]
+        scraping_tuple = tuple(row_list)
 
         return scraping_tuple
 

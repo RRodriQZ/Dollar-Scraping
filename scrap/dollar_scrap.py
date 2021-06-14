@@ -10,11 +10,11 @@ urllib3.disable_warnings()
 
 
 class Dollar(Scraping):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(Log())
         self.logger = Log().getLogger(__name__)
 
-    def get_response_by_url(self, url):
+    def get_response_by_url(self, url: str) -> BeautifulSoup:
         try:
             resquest = requests.get(url, verify=False, timeout=15)
             response = BeautifulSoup(resquest.content, 'html.parser')
@@ -24,7 +24,7 @@ class Dollar(Scraping):
             print(f'Error en el retorno del response de url: "{url}", error: "{e}"')
             self.logger.error(f'Error en el retorno del response de url: "{url}", error: "{e}"')
 
-    def get_data_from_pages(self):
+    def get_data_from_pages(self) -> dict:
         try:
             rofex_value_list = []
             dollar_scrap = dict()
