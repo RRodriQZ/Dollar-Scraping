@@ -11,30 +11,37 @@ Paginas Principales:
 * [CME Group] (https://www.cmegroup.com/)
 * [Bloomberg] (https://www.bloomberg.com)
 
-Para mas informacion ver los links del archivo: "**config.ini**".
+Para más informacion ver los links del archivo: "**config.ini**".
 
 # Pre Requirements 📋
 
-* **Python3** / **Docker**
+* **Python 3** - **pipenv** / **Docker**
 
-# Setup Python Virtual Environment 🔧
-Windows cmd / Ubuntu command:
-
-1) **python -m venv venv**
-
-2) **cd venv\Scripts & .\activate**
-
-3) **cd .. & cd .. & pip install -r requirements.txt**
-
+# Setup Python Virtual Environment 🔧 #
+```cmd
+pip install pipenv
+```
+**Windows** CMD:
+```cmd
+python -m venv venv
+.\venv\Scripts\activate
+pip install -r requirements.txt
+```
+**Linux / MAC** command:
+```cmd
+python -m venv venv
+source venv/bin/activate
+python -m pip install -r requirements.txt
+```
 # Running Python Script 🐼
-
-4) **python main.py**
-
+```cmd
+python main.py
+```
 # Running Docker 🐳
-
-1) **docker build -t scraping .**
-2) **docker run -it scraping**
-
+```cmd
+docker build -t scraping .
+docker run -it scraping
+```
 # Author 🖋
 
 * Rodrigo Quispe - Developer - [RRodriQZ]
