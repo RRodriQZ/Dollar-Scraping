@@ -1,5 +1,5 @@
 from functions.functions import clean_scraping_values
-from scrap.interface_scraping import Scraping
+from .interface_scraping import Scraping
 from urllib.request import urlopen, Request
 from bs4 import BeautifulSoup as soup
 from log.logger import Log
@@ -8,8 +8,8 @@ import json
 
 class Cme(Scraping):
     def __init__(self) -> None:
-        super().__init__(Log())
-        self.logger = Log().getLogger(__name__)
+        super().__init__()
+        self.logger = Log().get_logger(__name__)
 
     def get_response_by_url(self, url: str) -> dict:
         try:
@@ -25,7 +25,7 @@ class Cme(Scraping):
 
     def get_data_from_pages(self) -> dict:
         try:
-            cme_scrap = dict()
+            cme_scrap: dict[str, list[str]] = dict()
 
             for name_page, url in self.cme_pages.items():
 
@@ -48,7 +48,7 @@ class Cme(Scraping):
 
                 cme_scrap[name_page] = cme_value_list
 
-            print(f'Se extrajeron correctamente los valores "[CME]" --> {cme_scrap}')
+            print(f'Se extrajeron correctamente los valores "[CME]" --> {cme_scrap}\n')
             self.logger.info(f'Se extrajeron correctamente los valores "[CME]" --> {cme_scrap}')
 
             return cme_scrap

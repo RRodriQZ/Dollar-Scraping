@@ -2,6 +2,10 @@ from datetime import datetime
 from log.logger import Log
 
 
+# GLOBAL VALUES #
+logger = Log().get_logger(__name__)
+
+
 def get_str_time_now() -> str:
     """ Retorno la fecha actual en formato de String. """
     return datetime.now().strftime('%d-%m-%Y %H:%M:%S')
@@ -15,7 +19,6 @@ def clean_scraping_values(scrap: str, value: str) -> str:
     :param value: String
     :return: String
     """
-    logger = Log().getLogger(__name__)
     try:
         if scrap == 'dollar':
             rounded_value = round(float(value), 2)
@@ -46,12 +49,11 @@ def get_scraping_values_format_tuple(dollar_json: dict, cme_json: dict, bloomber
     Retorno los 3 scrapings appendeados en formato de: Tuple
     con el momento que se disparo el scraping.
 
-    :param dollar_json: dict
-    :param cme_json: dict
-    :param bloomberg_json: dict
-    :return: Tuple
+    :param dollar_json: dict[str, Union[str, list[str]]]
+    :param cme_json: dict[str, list[str]]
+    :param bloomberg_json: dict[str, list[str]]
+    :return: tuple
     """
-    logger = Log().getLogger(__name__)
     try:
         time_now = get_str_time_now()
 

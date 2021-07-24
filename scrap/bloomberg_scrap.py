@@ -1,5 +1,5 @@
 from functions.functions import clean_scraping_values
-from scrap.interface_scraping import Scraping
+from .interface_scraping import Scraping
 from urllib.request import urlopen, Request
 from bs4 import BeautifulSoup as soup
 from log.logger import Log
@@ -8,8 +8,8 @@ import json
 
 class Bloomberg(Scraping):
     def __init__(self) -> None:
-        super().__init__(Log())
-        self.logger = Log().getLogger(__name__)
+        super().__init__()
+        self.logger = Log().get_logger(__name__)
 
     def get_response_by_url(self, url: str) -> dict:
         try:
@@ -25,7 +25,7 @@ class Bloomberg(Scraping):
 
     def get_data_from_pages(self) -> dict:
         try:
-            bloomberg_scrap = dict()
+            bloomberg_scrap: dict[str, list[str]] = dict()
 
             for name_page, url in self.bloomberg_pages.items():
 
@@ -44,7 +44,7 @@ class Bloomberg(Scraping):
 
                 bloomberg_scrap[name_page] = bloomberg_value_list
 
-            print(f'Se extrajeron correctamente los valores "[BLOOMBERG]" --> {bloomberg_scrap}')
+            print(f'Se extrajeron correctamente los valores "[BLOOMBERG]" --> {bloomberg_scrap}\n')
             self.logger.info(f'Se extrajeron correctamente los valores "[BLOOMBERG]" --> {bloomberg_scrap}')
 
             return bloomberg_scrap

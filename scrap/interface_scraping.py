@@ -1,14 +1,13 @@
 from abc import ABCMeta, abstractmethod
 from configparser import ConfigParser
-from log.logger import Log
 
 
 class Scraping(object):
     __metaclass__ = ABCMeta
 
-    def __init__(self, log=Log()) -> None:
+    def __init__(self) -> None:
         config = ConfigParser()
-        config.read('config.ini')
+        config.read('scrap/resources/configuration.ini')
 
         self.dollar_pages = {
             'banco_nacion': config['Dollar']['banco_nacion'],
@@ -32,8 +31,6 @@ class Scraping(object):
             'bloomberg_1': config['Bloomberg']['bloomberg_1'],
             'bloomberg_2': config['Bloomberg']['bloomberg_2']
         }
-
-        self.logger = log.getLogger(__name__)
 
     @abstractmethod
     def get_response_by_url(self, url: str) -> dict: pass

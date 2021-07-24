@@ -1,22 +1,23 @@
-from openpyxl import Workbook, load_workbook
 from configparser import ConfigParser
+from openpyxl import (load_workbook,
+                      Workbook)
 from log.logger import Log
 import os
 
 
 # GLOBAL VALUES #
 config = ConfigParser()
-config.read('config.ini')
+config.read('sheets/resources/config.ini')
 REPORT_FILE = config['File']['excel_file']
 HEAD_COLUMN = config['File']['head']
+logger = Log().get_logger(__name__)
 
 
 def check_exists_excel_file() -> None:
-    logger = Log().getLogger(__name__)
     try:
-        print(f'========================= INICIANDO EL SCRIPT =========================')
+        print(f'========================= INICIANDO EL SCRIPT =========================\n')
         if os.path.exists(REPORT_FILE):
-            print(f'=========== Actualizando... el archivo "{REPORT_FILE}" ===========')
+            print(f'=========== Actualizando... el archivo "{REPORT_FILE}" ===========\n')
             logger.info(f'========================= INICIANDO EL SCRAPING =========================')
             logger.info(f'=========== Actualizando... el archivo "{REPORT_FILE}" ===========')
 
@@ -44,7 +45,6 @@ def check_exists_excel_file() -> None:
 
 
 def update_sheet_row(data: tuple) -> None:
-    logger = Log().getLogger(__name__)
     try:
         wb = load_workbook(REPORT_FILE)
 
@@ -54,8 +54,8 @@ def update_sheet_row(data: tuple) -> None:
 
         wb.save(REPORT_FILE)
 
-        print(f'=========== Se actualizo correctamente el reporte con la nueva informacion ===========')
-        logger.info(f'=========== Se actualizo correctamente el reporte con la nueva informacion ===========')
+        print(f'=========== Se actualizo correctamente "{REPORT_FILE}" con la nueva informacion ===========')
+        logger.info(f'=========== Se actualizo correctamente "{REPORT_FILE}" con la nueva informacion ===========')
 
     except Exception as e:
         print(f'ERROR en la actualizacion del excel, error: "{e}"')
