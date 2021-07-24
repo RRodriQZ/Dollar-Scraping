@@ -13,14 +13,13 @@ class Bloomberg(Scraping):
 
     def get_response_by_url(self, url: str) -> dict:
         try:
-            request = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+            request = Request(url, headers={"User-Agent": "Mozilla/5.0"})
             webpage = urlopen(request, timeout=10).read()
-            html_content = soup(webpage, 'html.parser')
+            html_content = soup(webpage, "html.parser")
             response = json.loads(html_content.text)
             return response
 
         except Exception as e:
-            print(f'Error en el retorno del response de url: "{url}", error: "{e}"')
             self.logger.error(f'Error en el retorno del response de url: "{url}", error: "{e}"')
 
     def get_data_from_pages(self) -> dict:
@@ -33,11 +32,11 @@ class Bloomberg(Scraping):
                 bloomberg_value_list = []
 
                 for i in range(2):
-                    bloomberg_price = response["fieldDataCollection"][i]['price']
-                    bloomberg_priceChange = response["fieldDataCollection"][i]['priceChange1Day']
+                    bloomberg_price = response["fieldDataCollection"][i]["price"]
+                    bloomberg_priceChange = response["fieldDataCollection"][i]["priceChange1Day"]
 
-                    bloomberg_price_value = clean_scraping_values('bloomberg', bloomberg_price)
-                    bloomberg_priceChange_value = clean_scraping_values('bloomberg', bloomberg_priceChange)
+                    bloomberg_price_value = clean_scraping_values("bloomberg", bloomberg_price)
+                    bloomberg_priceChange_value = clean_scraping_values("bloomberg", bloomberg_priceChange)
 
                     bloomberg_value_list.append(bloomberg_price_value)
                     bloomberg_value_list.append(bloomberg_priceChange_value)

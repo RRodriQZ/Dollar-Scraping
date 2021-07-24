@@ -13,14 +13,13 @@ class Cme(Scraping):
 
     def get_response_by_url(self, url: str) -> dict:
         try:
-            request = Request(url, headers={'User-Agent': 'XYZ/3.0'})
+            request = Request(url, headers={"User-Agent": "XYZ/3.0"})
             webpage = urlopen(request, timeout=25).read()
-            html_content = soup(webpage, 'html.parser')
+            html_content = soup(webpage, "html.parser")
             response = json.loads(html_content.text)
             return response
 
         except Exception as e:
-            print(f'Error en el retorno del response de url: "{url}", error: "{e}"')
             self.logger.error(f'Error en el retorno del response de url: "{url}", error: "{e}"')
 
     def get_data_from_pages(self) -> dict:
@@ -34,15 +33,15 @@ class Cme(Scraping):
                 cme_value_list = []
 
                 for i in range(6):
-                    if (i == 0) and (response['quotes'][i]['last'] != '-'):
-                        cme_value = response['quotes'][i]['last']
-                        cme_last_value = clean_scraping_values('cme', cme_value)
+                    if (i == 0) and (response["quotes"][i]["last"] != "-"):
+                        cme_value = response["quotes"][i]["last"]
+                        cme_last_value = clean_scraping_values("cme", cme_value)
 
                         cme_value_list.append(cme_last_value)
 
                     else:
-                        cme_value = response['quotes'][i]['priorSettle']
-                        cme_priorSettle_value = clean_scraping_values('cme', cme_value)
+                        cme_value = response["quotes"][i]["priorSettle"]
+                        cme_priorSettle_value = clean_scraping_values("cme", cme_value)
 
                         cme_value_list.append(cme_priorSettle_value)
 

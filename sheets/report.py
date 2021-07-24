@@ -1,30 +1,29 @@
 from configparser import ConfigParser
-from openpyxl import (load_workbook,
-                      Workbook)
+from openpyxl import load_workbook, Workbook
 from log.logger import Log
 import os
 
 
 # GLOBAL VALUES #
 config = ConfigParser()
-config.read('sheets/resources/config.ini')
-REPORT_FILE = config['File']['excel_file']
-HEAD_COLUMN = config['File']['head']
+config.read("sheets/resources/config.ini")
+REPORT_FILE = config["File"]["excel_file"]
+HEAD_COLUMN = config["File"]["head"]
 logger = Log().get_logger(__name__)
 
 
 def check_exists_excel_file() -> None:
     try:
-        print(f'========================= INICIANDO EL SCRIPT =========================\n')
+        print(f"========================= INICIANDO EL SCRIPT =========================\n")
         if os.path.exists(REPORT_FILE):
             print(f'=========== Actualizando... el archivo "{REPORT_FILE}" ===========\n')
-            logger.info(f'========================= INICIANDO EL SCRAPING =========================')
+            logger.info(f"========================= INICIANDO EL SCRAPING =========================")
             logger.info(f'=========== Actualizando... el archivo "{REPORT_FILE}" ===========')
 
         else:
             print(f'=========== No existe el archivo: "{REPORT_FILE}" ===========')
 
-            head_column = HEAD_COLUMN.split(',')
+            head_column = HEAD_COLUMN.split(",")
             titles = tuple(head_column)
 
             wb = Workbook()
