@@ -50,10 +50,10 @@ class Bloomberg(Scraping):
                 bloomberg_scrap[name_page] = bloomberg_value_list
 
             print(
-                f'The values ​​were extracted correctly "[BLOOMBERG]" --> {bloomberg_scrap}\n'
+                f'= Values "[BLOOMBERG]" were successfully extracted" --> {bloomberg_scrap}\n'
             )
             self.logger.info(
-                f'The values ​​were extracted correctly "[BLOOMBERG]" --> {bloomberg_scrap}'
+                f'= Values "[BLOOMBERG]" were successfully extracted" --> {bloomberg_scrap}'
             )
 
             return bloomberg_scrap

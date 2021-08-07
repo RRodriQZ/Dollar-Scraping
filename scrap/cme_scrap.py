@@ -49,9 +49,9 @@ class Cme(Scraping):
 
                 cme_scrap[name_page] = cme_value_list
 
-            print(f'Values ​​"[CME]" were successfully extracted --> {cme_scrap}\n')
+            print(f'= Values "[CME]" were successfully extracted --> {cme_scrap}\n')
             self.logger.info(
-                f'Values ​​"[CME]" were successfully extracted --> {cme_scrap}'
+                f'= Values "[CME]" were successfully extracted --> {cme_scrap}'
             )
 
             return cme_scrap
