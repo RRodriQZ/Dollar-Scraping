@@ -14,13 +14,15 @@ class Cme(Scraping):
     def get_response_by_url(self, url: str) -> dict:
         try:
             request = Request(url, headers={"User-Agent": "XYZ/3.0"})
-            webpage = urlopen(request, timeout=25).read()
+            webpage = urlopen(request, timeout=self.time_out).read()
             html_content = soup(webpage, "html.parser")
             response = json.loads(html_content.text)
             return response
 
         except Exception as e:
-            self.logger.error(f'Error en el retorno del response de url: "{url}", error: "{e}"')
+            self.logger.error(
+                f'Error in the return of the url response: "{url}", error: "{e}"'
+            )
 
     def get_data_from_pages(self) -> dict:
         try:
@@ -47,11 +49,13 @@ class Cme(Scraping):
 
                 cme_scrap[name_page] = cme_value_list
 
-            print(f'Se extrajeron correctamente los valores "[CME]" --> {cme_scrap}\n')
-            self.logger.info(f'Se extrajeron correctamente los valores "[CME]" --> {cme_scrap}')
+            print(f'Values ​​"[CME]" were successfully extracted --> {cme_scrap}\n')
+            self.logger.info(
+                f'Values ​​"[CME]" were successfully extracted --> {cme_scrap}'
+            )
 
             return cme_scrap
 
         except Exception as e:
-            print(f'Error en la extraccion de valores del scraping: "{e}"')
-            self.logger.error(f'Error en la extraccion de valores del scraping: "{e}"')
+            print(f'Error in the extraction of scraping values: "{e}"')
+            self.logger.error(f'Error in the extraction of scraping values: "{e}"')

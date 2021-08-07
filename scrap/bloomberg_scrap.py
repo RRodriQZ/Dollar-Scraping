@@ -1,7 +1,7 @@
 from functions.functions import clean_scraping_values
-from .interface_scraping import Scraping
 from urllib.request import urlopen, Request
-from bs4 import BeautifulSoup as soup
+from .interface_scraping import Scraping
+from bs4 import BeautifulSoup
 from log.logger import Log
 import json
 
@@ -14,13 +14,15 @@ class Bloomberg(Scraping):
     def get_response_by_url(self, url: str) -> dict:
         try:
             request = Request(url, headers={"User-Agent": "Mozilla/5.0"})
-            webpage = urlopen(request, timeout=10).read()
-            html_content = soup(webpage, "html.parser")
+            webpage = urlopen(request, timeout=self.time_out).read()
+            html_content = BeautifulSoup(webpage, "html.parser")
             response = json.loads(html_content.text)
             return response
 
         except Exception as e:
-            self.logger.error(f'Error en el retorno del response de url: "{url}", error: "{e}"')
+            self.logger.error(
+                f'Error in the return of the url response: "{url}", error: "{e}"'
+            )
 
     def get_data_from_pages(self) -> dict:
         try:
@@ -35,19 +37,27 @@ class Bloomberg(Scraping):
                     bloomberg_price = response["fieldDataCollection"][i]["price"]
                     bloomberg_priceChange = response["fieldDataCollection"][i]["priceChange1Day"]
 
-                    bloomberg_price_value = clean_scraping_values("bloomberg", bloomberg_price)
-                    bloomberg_priceChange_value = clean_scraping_values("bloomberg", bloomberg_priceChange)
+                    bloomberg_price_value = clean_scraping_values(
+                        "bloomberg", bloomberg_price
+                    )
+                    bloomberg_priceChange_value = clean_scraping_values(
+                        "bloomberg", bloomberg_priceChange
+                    )
 
                     bloomberg_value_list.append(bloomberg_price_value)
                     bloomberg_value_list.append(bloomberg_priceChange_value)
 
                 bloomberg_scrap[name_page] = bloomberg_value_list
 
-            print(f'Se extrajeron correctamente los valores "[BLOOMBERG]" --> {bloomberg_scrap}\n')
-            self.logger.info(f'Se extrajeron correctamente los valores "[BLOOMBERG]" --> {bloomberg_scrap}')
+            print(
+                f'The values ​​were extracted correctly "[BLOOMBERG]" --> {bloomberg_scrap}\n'
+            )
+            self.logger.info(
+                f'The values ​​were extracted correctly "[BLOOMBERG]" --> {bloomberg_scrap}'
+            )
 
             return bloomberg_scrap
 
         except Exception as e:
-            print(f'Error en la extraccion de valores del scraping: "{e}"')
-            self.logger.error(f'Error en la extraccion de valores del scraping: "{e}"')
+            print(f'Error in the extraction of scraping values: "{e}"')
+            self.logger.error(f'Error in the extraction of scraping values: "{e}"')

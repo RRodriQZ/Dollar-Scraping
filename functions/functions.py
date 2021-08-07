@@ -7,12 +7,12 @@ logger = Log().get_logger(__name__)
 
 
 def get_str_time_now() -> str:
-    """Retorno la fecha actual en formato de String"""
+    """Return the current date in String format"""
     return datetime.now().strftime("%d-%m-%Y %H:%M:%S")
 
 
 def clean_scraping_values(scrap: str, value: str) -> str:
-    """Retorno el valor limpio del sraping individual en formato String
+    """Return the clean value of the individual sraping in String format
 
     :param scrap: str
     :param value: str
@@ -39,12 +39,12 @@ def clean_scraping_values(scrap: str, value: str) -> str:
             return value
 
     except Exception as e:
-        print(f'Ocurrio un error en la limpieza del valor: "{e}"')
-        logger.error(f'Ocurrio un error en la limpieza del valor: "{e}"')
+        print(f'An error occurred when cleaning the value: "{e}"')
+        logger.error(f'An error occurred when cleaning the value: "{e}"')
 
 
 def get_scraping_values_format_tuple(dollar_json: dict, cme_json: dict, bloomberg_json: dict) -> tuple:
-    """Retorno los 3 scrapings appendeados en formato de: Tuple con el momento que se disparo el scraping
+    """Return the 3 appendeados scrapings in the format of: Tuple with the moment the scraping was triggered
 
     :param dollar_json: dict[str, Union[str, list[str]]]
     :param cme_json: dict[str, list[str]]
@@ -77,5 +77,5 @@ def get_scraping_values_format_tuple(dollar_json: dict, cme_json: dict, bloomber
         return scraping_tuple
 
     except Exception as e:
-        print(f'Error en la transformacion de datos, error: "{e}"')
-        logger.error(f'Error en la transformacion de datos, error: "{e}"')
+        print(f'Data transformation error, error: "{e}"')
+        logger.error(f'Data transformation error, error: "{e}"')
