@@ -9,6 +9,8 @@ class Scraping(object):
         config = ConfigParser()
         config.read("scrap/resources/configuration.ini")
 
+        self.time_out = 15
+
         self.dollar_pages = {
             "banco_nacion": config["Dollar"]["banco_nacion"],
             "rofex": config["Dollar"]["rofex"]
@@ -29,7 +31,7 @@ class Scraping(object):
 
         self.bloomberg_pages = {
             "bloomberg_1": config["Bloomberg"]["bloomberg_1"],
-            "bloomberg_2": config["Bloomberg"]["bloomberg_2"],
+            "bloomberg_2": config["Bloomberg"]["bloomberg_2"]
         }
 
     @abstractmethod

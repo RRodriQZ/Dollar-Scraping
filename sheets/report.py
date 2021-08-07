@@ -1,5 +1,5 @@
-from configparser import ConfigParser
 from openpyxl import load_workbook, Workbook
+from configparser import ConfigParser
 from log.logger import Log
 import os
 
@@ -7,6 +7,7 @@ import os
 # GLOBAL VALUES #
 config = ConfigParser()
 config.read("sheets/resources/config.ini")
+
 REPORT_FILE = config["File"]["excel_file"]
 HEAD_COLUMN = config["File"]["head"]
 logger = Log().get_logger(__name__)
@@ -14,14 +15,14 @@ logger = Log().get_logger(__name__)
 
 def check_exists_excel_file() -> None:
     try:
-        print(f"========================= INICIANDO EL SCRIPT =========================\n")
+        print(f"========================= STARTING THE SCRIPT =========================\n")
         if os.path.exists(REPORT_FILE):
-            print(f'=========== Actualizando... el archivo "{REPORT_FILE}" ===========\n')
-            logger.info(f"========================= INICIANDO EL SCRAPING =========================")
-            logger.info(f'=========== Actualizando... el archivo "{REPORT_FILE}" ===========')
+            print(f'=========== Updating ... the file "{REPORT_FILE}" ===========\n')
+            logger.info(f"========================= STARTING SCRAPING =========================")
+            logger.info(f'=========== Updating ... the file "{REPORT_FILE}" ===========')
 
         else:
-            print(f'=========== No existe el archivo: "{REPORT_FILE}" ===========')
+            print(f'=========== File does not exist: "{REPORT_FILE}" ===========')
 
             head_column = HEAD_COLUMN.split(",")
             titles = tuple(head_column)
@@ -34,13 +35,13 @@ def check_exists_excel_file() -> None:
 
             wb.save(REPORT_FILE)
 
-            print(f'Generado un nuevo archivo: "{REPORT_FILE}"')
-            logger.info(f'=========== No existe el archivo: "{REPORT_FILE}" ===========')
-            logger.info(f'Generado un nuevo archivo: "{REPORT_FILE}"')
+            print(f'Generated a new file: "{REPORT_FILE}"')
+            logger.info(f'=========== File does not exist: "{REPORT_FILE}" ===========')
+            logger.info(f'Generated a new file: "{REPORT_FILE}"')
 
     except Exception as e:
-        print(f'ERROR en la Generacion del excel "{REPORT_FILE}", error: "{e}"')
-        logger.error(f'ERROR en la Generacion del excel "{REPORT_FILE}", error: "{e}"')
+        print(f'ERROR in the Excel Generation "{REPORT_FILE}", error: "{e}"')
+        logger.error(f'ERROR in the Excel Generation "{REPORT_FILE}", error: "{e}"')
 
 
 def update_sheet_row(data: tuple) -> None:
@@ -53,9 +54,9 @@ def update_sheet_row(data: tuple) -> None:
 
         wb.save(REPORT_FILE)
 
-        print(f'=========== Se actualizo correctamente "{REPORT_FILE}" con la nueva informacion ===========')
-        logger.info(f'=========== Se actualizo correctamente "{REPORT_FILE}" con la nueva informacion ===========')
+        print(f'=========== "{REPORT_FILE}" was correctly updated with the new information ===========')
+        logger.info(f'=========== "{REPORT_FILE}" was correctly updated with the new information ===========')
 
     except Exception as e:
-        print(f'ERROR en la actualizacion del excel, error: "{e}"')
-        logger.error(f'ERROR en la actualizacion del excel, error: "{e}"')
+        print(f'ERROR in the excel update, error: "{e}"')
+        logger.error(f'ERROR in the excel update, error: "{e}"')

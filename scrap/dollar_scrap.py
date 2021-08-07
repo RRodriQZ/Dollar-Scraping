@@ -21,7 +21,9 @@ class Dollar(Scraping):
             return response
 
         except Exception as e:
-            self.logger.error(f'Error en el retorno del response de url: "{url}", error: "{e}"')
+            self.logger.error(
+                f'Error in the return of the url response: "{url}", error: "{e}"'
+            )
 
     def get_data_from_pages(self) -> dict:
         try:
@@ -44,23 +46,28 @@ class Dollar(Scraping):
                     dollar_scrap[name_page] = banco_nacion_value
 
                 elif name_page == "rofex":
-                    for rof in (
+                    result = (
                         response.find("div", {"class": "table-responsive"})
                         .find("tbody")
                         .find_all("tr")
-                    ):
+                    )
 
+                    for rof in result:
                         rofex_value = clean_scraping_values("rofex", rof)
                         rofex_value_list.append(rofex_value)
 
                     rofex_value_list = rofex_value_list[0:5]
                     dollar_scrap[name_page] = rofex_value_list
 
-            print(f'Se extrajeron correctamente los valores "[DOLLAR]" --> {dollar_scrap}\n')
-            self.logger.info(f'Se extrajeron correctamente los valores "[DOLLAR]" --> {dollar_scrap}')
+            print(
+                f'The values ​​"[DOLLAR]" were correctly extracted --> {dollar_scrap}\n'
+            )
+            self.logger.info(
+                f'The values ​​"[DOLLAR]" were correctly extracted --> {dollar_scrap}'
+            )
 
             return dollar_scrap
 
         except Exception as e:
-            print(f'Error en la extraccion de valores del scraping: "{e}"')
-            self.logger.error(f'Error en la extraccion de valores del scraping: "{e}"')
+            print(f'Error in the extraction of scraping values: "{e}"')
+            self.logger.error(f'Error in the extraction of scraping values: "{e}"')
