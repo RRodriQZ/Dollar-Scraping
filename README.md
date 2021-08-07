@@ -2,20 +2,20 @@
 
 Web Scraping of dollar values
 
-Esta aplicacion extrae datos economicos de distintas fuentes utilizando web scraping con
-Beautifilsoup, para posteriormente guardarlos en un archivo excel.
+This application extracts economic data from different sources using web scraping with
+Beautifilsoup, to later save them in an excel file.
 
-Paginas Principales:
+Main Pages:
 * [Banco Nacion] (https://www.bna.com.ar/Personas)
 * [Rofex] (https://www.matbarofex.com.ar/)
 * [CME Group] (https://www.cmegroup.com/)
 * [Bloomberg] (https://www.bloomberg.com)
 
-Para más informacion ver los links del archivo: "**config.ini**".
+For more information see the links of the file: "**scrap/resources/configuration.ini**"
 
 # Pre Requirements 📋
 
-* **Python 3** - **pipenv** / **Docker**
+* **Python 3**-**pipenv** / **Docker**
 
 # Setup Python Virtual Environment 🔧 #
 ```cmd
