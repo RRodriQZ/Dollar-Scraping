@@ -15,14 +15,8 @@ logger = Log().get_logger(__name__)
 
 def check_exists_excel_file() -> None:
     try:
-        print(f"========================= STARTING THE SCRIPT =========================\n")
-        if os.path.exists(REPORT_FILE):
-            print(f'=========== Updating ... the file "{REPORT_FILE}" ===========\n')
-            logger.info(f"========================= STARTING SCRAPING =========================")
-            logger.info(f'=========== Updating ... the file "{REPORT_FILE}" ===========')
-
-        else:
-            print(f'=========== File does not exist: "{REPORT_FILE}" ===========')
+        if not os.path.exists(REPORT_FILE):
+            print(f'==> File does not exist: "{REPORT_FILE}"')
 
             head_column = HEAD_COLUMN.split(",")
             titles = tuple(head_column)
@@ -35,9 +29,13 @@ def check_exists_excel_file() -> None:
 
             wb.save(REPORT_FILE)
 
-            print(f'Generated a new file: "{REPORT_FILE}"')
-            logger.info(f'=========== File does not exist: "{REPORT_FILE}" ===========')
-            logger.info(f'Generated a new file: "{REPORT_FILE}"')
+            print(f'==> Generated a new file: "{REPORT_FILE}"')
+
+            logger.info(f'==> File does not exist: "{REPORT_FILE}"')
+            logger.info(f'==> Generated a new file: "{REPORT_FILE}"')
+
+        else:
+            pass
 
     except Exception as e:
         print(f'ERROR in the Excel Generation "{REPORT_FILE}", error: "{e}"')
@@ -46,6 +44,8 @@ def check_exists_excel_file() -> None:
 
 def update_sheet_row(data: tuple) -> None:
     try:
+        check_exists_excel_file()
+
         wb = load_workbook(REPORT_FILE)
 
         sheet = wb.active
@@ -54,8 +54,9 @@ def update_sheet_row(data: tuple) -> None:
 
         wb.save(REPORT_FILE)
 
-        print(f'=========== "{REPORT_FILE}" was correctly updated with the new information ===========')
-        logger.info(f'=========== "{REPORT_FILE}" was correctly updated with the new information ===========')
+        print(f'==> "{REPORT_FILE}" was correctly updated with the new information')
+        logger.info(f'==> "{REPORT_FILE}" was correctly updated with the new information')
+        logger.info(f'======================================================================')
 
     except Exception as e:
         print(f'ERROR in the excel update, error: "{e}"')

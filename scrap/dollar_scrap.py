@@ -60,10 +60,10 @@ class Dollar(Scraping):
                     dollar_scrap[name_page] = rofex_value_list
 
             print(
-                f'The values ​​"[DOLLAR]" were correctly extracted --> {dollar_scrap}\n'
+                f'= Values "[DOLLAR]" were successfully extracted --> {dollar_scrap}\n'
             )
             self.logger.info(
-                f'The values ​​"[DOLLAR]" were correctly extracted --> {dollar_scrap}'
+                f'= Values "[DOLLAR]" were successfully extracted --> {dollar_scrap}'
             )
 
             return dollar_scrap
