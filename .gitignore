@@ -17,6 +17,9 @@ venv/
 # Files
 *.xlsx
 
+# Installer logs
+**/*.egg-info
+
 # Cache
 log/LOG.log
 __pycache__/
