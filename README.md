@@ -3,7 +3,7 @@
 Web Scraping of dollar values
 
 This application extracts economic data from different sources using web scraping with
-Beautifilsoup, to later save them in an excel file.
+Beautifilsoup, to later save them in an Excel file.
 
 Main Pages:
 * [Banco Nacion] (https://www.bna.com.ar/Personas)
@@ -25,13 +25,13 @@ pip install pipenv
 ```cmd
 python -m venv venv
 .\venv\Scripts\activate
-pip install -r requirements.txt
+pip install -e .
 ```
 **Linux / MAC** command:
 ```cmd
 python -m venv venv
 source venv/bin/activate
-python -m pip install -r requirements.txt
+python -m pip install -e .
 ```
 # Running Python Script 🐼
 ```cmd
@@ -39,8 +39,8 @@ python main.py
 ```
 # Running Docker 🐳
 ```cmd
-docker build -t scraping .
-docker run -it scraping
+docker build -t dollar-scraping .
+docker run -it dollar-scraping
 ```
 # Author 🖋
 
