@@ -1,5 +1,6 @@
 from functions.functions import clean_scraping_values
 from .interface_scraping import Scraping
+from dataclasses import dataclass
 from bs4 import BeautifulSoup
 from log.logger import Log
 from typing import Union
@@ -9,10 +10,10 @@ import urllib3
 urllib3.disable_warnings()
 
 
+@dataclass
 class Dollar(Scraping):
-    def __init__(self) -> None:
-        super().__init__()
-        self.logger = Log().get_logger(__name__)
+
+    logger: Log = Log().get_logger(__name__)
 
     def get_response_by_url(self, url: str) -> BeautifulSoup:
         try:
