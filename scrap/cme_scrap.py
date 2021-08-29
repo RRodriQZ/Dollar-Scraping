@@ -1,21 +1,22 @@
 from functions.functions import clean_scraping_values
-from .interface_scraping import Scraping
 from urllib.request import urlopen, Request
-from bs4 import BeautifulSoup as soup
+from .interface_scraping import Scraping
+from dataclasses import dataclass
+from bs4 import BeautifulSoup
 from log.logger import Log
 import json
 
 
+@dataclass
 class Cme(Scraping):
-    def __init__(self) -> None:
-        super().__init__()
-        self.logger = Log().get_logger(__name__)
+
+    logger: Log = Log().get_logger(__name__)
 
     def get_response_by_url(self, url: str) -> dict:
         try:
             request = Request(url, headers={"User-Agent": "XYZ/3.0"})
             webpage = urlopen(request, timeout=self.time_out).read()
-            html_content = soup(webpage, "html.parser")
+            html_content = BeautifulSoup(webpage, "html.parser")
             response = json.loads(html_content.text)
             return response
 
