@@ -1,15 +1,16 @@
 from functions.functions import clean_scraping_values
 from urllib.request import urlopen, Request
 from .interface_scraping import Scraping
+from dataclasses import dataclass
 from bs4 import BeautifulSoup
 from log.logger import Log
 import json
 
 
+@dataclass
 class Bloomberg(Scraping):
-    def __init__(self) -> None:
-        super().__init__()
-        self.logger = Log().get_logger(__name__)
+
+    logger: Log = Log().get_logger(__name__)
 
     def get_response_by_url(self, url: str) -> dict:
         try:
@@ -35,7 +36,9 @@ class Bloomberg(Scraping):
 
                 for i in range(2):
                     bloomberg_price = response["fieldDataCollection"][i]["price"]
-                    bloomberg_priceChange = response["fieldDataCollection"][i]["priceChange1Day"]
+                    bloomberg_priceChange = response["fieldDataCollection"][i][
+                        "priceChange1Day"
+                    ]
 
                     bloomberg_price_value = clean_scraping_values(
                         "bloomberg", bloomberg_price
